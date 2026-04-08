@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>DapurSehat</title>
+  <meta name="description" content="Rencanakan menu sehat mingguanmu dari bahan belanjaan" />
+  <meta name="theme-color" content="#1a1a1a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="DapurSehat" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="screen-login" class="screen active">
+  <div class="login-bg">
+    <div class="login-blob blob1"></div>
+    <div class="login-blob blob2"></div>
+    <div class="login-blob blob3"></div>
+  </div>
+  <div class="login-content">
+    <div class="login-logo">
+      <div class="logo-icon">🥗</div>
+      <h1 class="login-title">DapurSehat</h1>
+      <p class="login-sub">Menu sehat dari bahan belanjaanmu</p>
+    </div>
+    <div class="login-card">
+      <p class="login-desc">Masuk untuk mulai merencanakan menu sehat mingguanmu bersama keluarga.</p>
+      <button class="btn-google" id="btn-login">
+        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        Masuk dengan Google
+      </button>
+      <p class="login-note">Data kamu tersimpan aman di cloud dan bisa diakses dari HP manapun.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="screen-app" class="screen">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-logo">🥗</span>
+      <span class="topbar-name">DapurSehat</span>
+    </div>
+    <div class="topbar-right">
+      <div class="user-avatar" id="user-avatar" onclick="toggleProfileMenu()"></div>
+      <div class="profile-menu" id="profile-menu">
+        <div class="profile-info">
+          <div class="profile-name" id="profile-name"></div>
+          <div class="profile-email" id="profile-email"></div>
+        </div>
+        <hr class="profile-divider" />
+        <button class="profile-logout" id="btn-logout">Keluar</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-tab="home" onclick="switchTab('home', this)">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+      <span>Beranda</span>
+    </button>
+    <button class="nav-item" data-tab="ingredients" onclick="switchTab('ingredients', this)">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M6 2v6m0 0a3 3 0 100 6 3 3 0 000-6zm12-6v6m0 0a3 3 0 100 6 3 3 0 000-6zM12 2v20M8 12h8"/></svg>
+      <span>Bahan</span>
+    </button>
+    <button class="nav-item nav-center" data-tab="generate" onclick="switchTab('generate', this)">
+      <div class="nav-center-btn">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+      </div>
+      <span>Generate</span>
+    </button>
+    <button class="nav-item" data-tab="schedule" onclick="switchTab('schedule', this)">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      <span>Jadwal</span>
+    </button>
+    <button class="nav-item" data-tab="history" onclick="switchTab('history', this)">
+      <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      <span>Riwayat</span>
+    </button>
+  </nav>
+
+  <!-- CONTENT AREA -->
+  <main class="main-content">
+
+    <!-- HOME TAB -->
+    <div class="tab-content active" id="tab-home">
+      <div class="home-header">
+        <p class="home-greeting" id="home-greeting">Selamat pagi 👋</p>
+        <h2 class="home-title" id="home-username">Loading...</h2>
+        <p class="home-subtitle">Mau masak apa hari ini?</p>
+      </div>
+
+      <div class="today-section">
+        <div class="section-label">Menu hari ini</div>
+        <div id="today-meals" class="today-meals">
+          <div class="empty-state small">
+            <span>🍽️</span>
+            <p>Belum ada menu dijadwalkan hari ini</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-num" id="stat-ingredients">0</div>
+          <div class="stat-label">Bahan tersimpan</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-menus">0</div>
+          <div class="stat-label">Menu dihasilkan</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-scheduled">0</div>
+          <div class="stat-label">Menu dijadwalkan</div>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <div class="section-label">Mulai dari sini</div>
+        <div class="qa-grid">
+          <button class="qa-card" onclick="switchTab('ingredients', document.querySelector('[data-tab=ingredients]'))">
+            <div class="qa-icon">🛒</div>
+            <div class="qa-text">
+              <div class="qa-title">Input bahan</div>
+              <div class="qa-desc">Tambah hasil belanjaan</div>
+            </div>
+          </button>
+          <button class="qa-card" onclick="switchTab('generate', document.querySelector('[data-tab=generate]'))">
+            <div class="qa-icon">✨</div>
+            <div class="qa-text">
+              <div class="qa-title">Generate menu</div>
+              <div class="qa-desc">Buat ide masakan</div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- INGREDIENTS TAB -->
+    <div class="tab-content" id="tab-ingredients">
+      <div class="page-header">
+        <h2 class="page-title">Bahan belanjaan</h2>
+        <p class="page-sub">Daftar bahan yang kamu punya saat ini</p>
+      </div>
+
+      <div class="input-group">
+        <input type="text" id="ingr-input" class="ingr-input" placeholder="Ketik nama bahan... (pisahkan dengan koma)" />
+        <button class="btn-add" onclick="addIngredients()">Tambah</button>
+      </div>
+
+      <div class="ingr-quick">
+        <span class="quick-label">Cepat tambah:</span>
+        <div class="quick-tags">
+          <button class="quick-tag" onclick="quickAdd('Ayam, Dada ayam')">🍗 Ayam</button>
+          <button class="quick-tag" onclick="quickAdd('Tahu, Tempe')">🟫 Tahu & Tempe</button>
+          <button class="quick-tag" onclick="quickAdd('Bayam, Kangkung, Brokoli')">🥦 Sayuran hijau</button>
+          <button class="quick-tag" onclick="quickAdd('Beras, Oat')">🌾 Karbohidrat</button>
+          <button class="quick-tag" onclick="quickAdd('Telur')">🥚 Telur</button>
+          <button class="quick-tag" onclick="quickAdd('Wortel, Kentang, Tomat')">🥕 Umbi & buah</button>
+        </div>
+      </div>
+
+      <div class="section-label" style="margin-top:1.5rem">Bahan tersimpan <span class="badge" id="ingr-count">0</span></div>
+      <div class="ingr-grid" id="ingr-grid">
+        <div class="empty-state">
+          <span>🛒</span>
+          <p>Belum ada bahan. Tambahkan hasil belanjaan kamu!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- GENERATE TAB -->
+    <div class="tab-content" id="tab-generate">
+      <div class="page-header">
+        <h2 class="page-title">Generate menu</h2>
+        <p class="page-sub">AI akan carikan menu sehat dari bahan kamu</p>
+      </div>
+
+      <div class="generate-options">
+        <div class="option-group">
+          <label class="option-label">Jenis menu</label>
+          <div class="option-chips" id="meal-type-chips">
+            <button class="chip active" data-val="semua">Semua</button>
+            <button class="chip" data-val="sarapan">Sarapan</button>
+            <button class="chip" data-val="makan siang">Makan Siang</button>
+            <button class="chip" data-val="makan malam">Makan Malam</button>
+            <button class="chip" data-val="camilan">Camilan</button>
+          </div>
+        </div>
+        <div class="option-group">
+          <label class="option-label">Jumlah orang</label>
+          <div class="option-chips">
+            <button class="chip" data-val="1" onclick="setPortions(this)">1</button>
+            <button class="chip active" data-val="2" onclick="setPortions(this)">2</button>
+            <button class="chip" data-val="4" onclick="setPortions(this)">4</button>
+            <button class="chip" data-val="6" onclick="setPortions(this)">6</button>
+          </div>
+        </div>
+        <div class="option-group">
+          <label class="option-label">Preferensi</label>
+          <div class="option-chips">
+            <button class="chip active" data-pref="rendah kalori" onclick="togglePref(this)">Rendah kalori</button>
+            <button class="chip" data-pref="tinggi protein" onclick="togglePref(this)">Tinggi protein</button>
+            <button class="chip" data-pref="vegetarian" onclick="togglePref(this)">Vegetarian</button>
+            <button class="chip" data-pref="bebas gluten" onclick="togglePref(this)">Bebas gluten</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ingr-summary" id="ingr-summary">
+        <span class="ingr-summary-icon">🛒</span>
+        <span id="ingr-summary-text">Memuat bahan...</span>
+      </div>
+
+      <button class="btn-generate" id="btn-generate" onclick="generateMenus()">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+        Carikan Menu Sehat
+      </button>
+
+      <div id="generate-results"></div>
+    </div>
+
+    <!-- SCHEDULE TAB -->
+    <div class="tab-content" id="tab-schedule">
+      <div class="page-header">
+        <h2 class="page-title">Jadwal makan</h2>
+        <p class="page-sub">Rencana menu minggu ini</p>
+      </div>
+      <div class="week-nav">
+        <button class="week-btn" onclick="changeWeek(-1)">‹</button>
+        <span class="week-label" id="week-label">Minggu ini</span>
+        <button class="week-btn" onclick="changeWeek(1)">›</button>
+      </div>
+      <div id="schedule-grid" class="schedule-grid"></div>
+    </div>
+
+    <!-- HISTORY TAB -->
+    <div class="tab-content" id="tab-history">
+      <div class="page-header">
+        <h2 class="page-title">Riwayat menu</h2>
+        <p class="page-sub">Menu yang pernah kamu buat</p>
+      </div>
+      <div id="history-list" class="history-list">
+        <div class="empty-state">
+          <span>📖</span>
+          <p>Belum ada riwayat menu</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- MODAL RECIPE -->
+<div class="modal-overlay" id="modal-recipe" onclick="closeModal('modal-recipe')">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-scroll">
+      <div class="modal-header">
+        <div class="modal-badge" id="modal-badge"></div>
+        <h3 class="modal-title" id="modal-title"></h3>
+        <div class="modal-meta" id="modal-meta"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Bahan-bahan</div>
+        <div id="modal-ingredients"></div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-title">Cara membuat</div>
+        <div id="modal-recipe-steps"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-schedule-this" id="btn-schedule-this">+ Tambah ke Jadwal</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL SCHEDULE -->
+<div class="modal-overlay" id="modal-schedule" onclick="closeModal('modal-schedule')">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-handle"></div>
+    <div class="modal-scroll">
+      <h3 class="modal-title" style="margin-bottom:1.5rem">Jadwalkan menu</h3>
+      <div class="sched-menu-name" id="sched-menu-name"></div>
+      <div class="form-group">
+        <label class="form-label">Tanggal</label>
+        <input type="date" id="sched-date" class="form-input" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Waktu makan</label>
+        <div class="option-chips" style="margin-top:8px">
+          <button class="chip active" data-meal="Sarapan" onclick="selectMealTime(this)">Sarapan</button>
+          <button class="chip" data-meal="Makan Siang" onclick="selectMealTime(this)">Makan Siang</button>
+          <button class="chip" data-meal="Makan Malam" onclick="selectMealTime(this)">Makan Malam</button>
+          <button class="chip" data-meal="Camilan" onclick="selectMealTime(this)">Camilan</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Catatan (opsional)</label>
+        <textarea id="sched-note" class="form-input" rows="2" placeholder="Misal: untuk 4 orang, kurangi garam..."></textarea>
+      </div>
+      <button class="btn-generate" onclick="saveSchedule()" style="margin-top:0.5rem">Simpan ke Jadwal</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="app.js"></script>
+</body>
+</html>

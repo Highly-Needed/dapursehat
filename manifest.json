@@ -1,0 +1,40 @@
+{
+  "name": "DapurSehat",
+  "short_name": "DapurSehat",
+  "description": "Rencanakan menu sehat mingguanmu dari bahan belanjaan",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#1a1a1a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["food", "health", "lifestyle"],
+  "lang": "id",
+  "shortcuts": [
+    {
+      "name": "Generate Menu",
+      "short_name": "Generate",
+      "url": "/?tab=generate",
+      "description": "Langsung generate menu sehat"
+    },
+    {
+      "name": "Lihat Jadwal",
+      "short_name": "Jadwal",
+      "url": "/?tab=schedule",
+      "description": "Cek jadwal makan minggu ini"
+    }
+  ]
+}
