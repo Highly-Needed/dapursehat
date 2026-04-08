@@ -1,6 +1,6 @@
 // ===== CONFIG — GANTI DENGAN MILIK KAMU =====
-const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
-const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';
+const SUPABASE_URL = 'https://qmslzhibveitbaggqpow.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFtc2x6aGlidmVpdGJhZ2dxcG93Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NzM5ODIsImV4cCI6MjA5MTI0OTk4Mn0.rP0xwO0jMG-39FIGkhaKZ94I2ctTlW7aa_fTowsledo';
 const ANTHROPIC_API_KEY = 'YOUR_ANTHROPIC_API_KEY'; // Simpan di backend/edge function untuk produksi
 
 // ===== INIT SUPABASE =====
