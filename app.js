@@ -256,7 +256,7 @@ Balas HANYA dengan JSON array (tanpa preamble, tanpa markdown backtick):
 ]`;
 
   try {
-    const resp = await fetch('/.netlify/functions/generate-menu', {
+    const resp = await fetch('/api/generate-menu', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
