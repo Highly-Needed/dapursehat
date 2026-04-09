@@ -265,19 +265,27 @@ Balas HANYA dengan JSON array (tanpa preamble, tanpa markdown backtick):
     });
 
     const data = await resp.json();
-    const text = data.content?.map(c => c.text || '').join('') || '';
-    const clean = text.replace(/```json|```/g, '').trim();
-    generatedMenus = JSON.parse(clean);
+    console.log('API response:', JSON.stringify(data).slice(0, 300));
 
-    // Simpan ke history
+    if (data.error) throw new Error(data.error);
+
+    const text = data.content?.map(c => c.text || '').join('') || '';
+    if (!text) throw new Error('Response kosong dari AI');
+
+    const jsonMatch = text.match(/\[[\s\S]*\]/);
+    if (!jsonMatch) throw new Error('Format response tidak valid');
+
+    generatedMenus = JSON.parse(jsonMatch[0]);
+    if (!generatedMenus.length) throw new Error('Tidak ada menu yang dihasilkan');
+
     await saveToHistory(generatedMenus);
     await loadHistory();
 
     renderMenuResults();
     updateStats();
   } catch (e) {
-    results.innerHTML = `<div class="empty-state"><span>⚠️</span><p>Gagal generate menu. Periksa koneksi dan coba lagi.</p></div>`;
-    console.error(e);
+    results.innerHTML = `<div class="empty-state"><span>⚠️</span><p>Gagal: ${e.message}</p></div>`;
+    console.error('Generate error:', e);
   } finally {
     btn.disabled = false;
   }
